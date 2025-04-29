@@ -1,5 +1,5 @@
 ---
-title: "Beautiful Now"
+title: "Beautiful now - zedd"
 categories:
   - Zedd
 
