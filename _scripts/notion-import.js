@@ -12,9 +12,9 @@ const notion = new Client({
 });
 
 function escapeCodeBlock(body) {
-  const regex = /```([\s\S]*?)```/g;
+  const regex = /([\s\S]*?)/g;
   return body.replace(regex, function (match, htmlBlock) {
-    return "\n{% raw %}\n```" + htmlBlock.trim() + "\n```\n{% endraw %}\n";
+    return "\n{% raw %}\n" + htmlBlock.trim() + "\n\n{% endraw %}\n";
   });
 }
 
@@ -110,21 +110,25 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     let fmtags = "";
     let fmcats = "";
     if (tags.length > 0) {
-      fmtags += "\ntags:\n";
+      fmtags += "\ntags: [";
       for (const t of tags) {
-        fmtags += `  - ${t}\n`;
+        fmtags += t + ", ";
       }
+      fmtags += "]";
     }
     if (cats.length > 0) {
-      fmcats += "\ncategories:\n";
+      fmcats += "\ncategories: [";
       for (const t of cats) {
-        fmcats += `  - ${t}\n`;
+        fmcats += t + ", ";
       }
+      fmcats += "]";
     }
-    const fm = `---
-title: "${title}"${fmcats}${fmtags}
+    const fm = ---
+layout: post
+date: ${date}
+title: "${title}"${fmtags}${fmcats}
 ---
-`;
+;
     const mdblocks = await n2m.pageToMarkdown(id);
     let md = n2m.toMarkdownString(mdblocks)["parent"];
     if (md === "") {
@@ -133,7 +137,7 @@ title: "${title}"${fmcats}${fmtags}
     md = escapeCodeBlock(md);
     md = replaceTitleOutsideRawBlocks(md);
 
-    const ftitle = `${date}-${title.replaceAll(" ", "-")}.md`;
+    const ftitle = ${date}-${title.replaceAll(" ", "-")}.md;
 
     let index = 0;
     let edited_md = md.replace(
@@ -143,7 +147,7 @@ title: "${title}"${fmcats}${fmtags}
         if (!fs.existsSync(dirname)) {
           fs.mkdirSync(dirname, { recursive: true });
         }
-        const filename = path.join(dirname, `${index}.png`);
+        const filename = path.join(dirname, ${index}.png);
 
         axios({
           method: "get",
@@ -151,7 +155,7 @@ title: "${title}"${fmcats}${fmtags}
           responseType: "stream",
         })
           .then(function (response) {
-            let file = fs.createWriteStream(`${filename}`);
+            let file = fs.createWriteStream(${filename});
             response.data.pipe(file);
           })
           .catch(function (error) {
@@ -160,9 +164,9 @@ title: "${title}"${fmcats}${fmtags}
 
         let res;
         if (p1 === "") res = "";
-        else res = `_${p1}_`;
+        else res = _${p1}_;
 
-        return `![${index++}](/${filename})${res}`;
+        return ![${index++}](/${filename})${res};
       }
     );
 
