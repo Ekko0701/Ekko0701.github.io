@@ -110,23 +110,21 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     let fmtags = "";
     let fmcats = "";
     if (tags.length > 0) {
-      fmtags += "\ntags: [";
+      fmtags += "\ntags:\n";
       for (const t of tags) {
-        fmtags += t + ", ";
+        fmtags += `  - ${t}\n`;
       }
-      fmtags += "]";
     }
     if (cats.length > 0) {
-      fmcats += "\ncategories: [";
+      fmcats += "\ncategories:\n";
       for (const t of cats) {
-        fmcats += t + ", ";
+        fmcats += `  - ${t}\n`;
       }
-      fmcats += "]";
     }
     const fm = `---
-layout: post
-date: ${date}
-title: "${title}"${fmtags}${fmcats}
+// layout: post
+// date: ${date}
+title: "${title}"${fmcats}${fmtags}
 ---
 `;
     const mdblocks = await n2m.pageToMarkdown(id);
