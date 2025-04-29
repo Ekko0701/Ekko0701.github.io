@@ -1,5 +1,5 @@
 source "https://rubygems.org"
+gemspec
 
-gem 'jekyll'
 gem 'jekyll-seo-tag'
-gem 'minimal-mistakes-jekyll'
+gem "jekyll-remote-theme"
