@@ -47,15 +47,16 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
   fs.mkdirSync(root, { recursive: true });
 
   const databaseId = process.env.DATABASE_ID;
-  let response = await notion.databases.query({
+  const response = await notion.databases.query({
     database_id: databaseId,
     filter: {
-      property: "공개",
+      property: "발행여부",
       checkbox: {
-        equals: true,
+        equals: false,
       },
     },
   });
+  
 
   const pages = response.results;
   while (response.has_more) {
