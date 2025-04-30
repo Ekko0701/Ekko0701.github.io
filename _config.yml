@@ -23,7 +23,7 @@ subtitle                 : # site tagline that appears below site title in masth
 name                     : "브라운"
 description              : "하루하루는 성실하게, 인생은 흘러가는대로"
 url                      : "https://ekko0701.github.io"
-baseurl                  : "/Ekko0701.github.io"
+baseurl                  : ""
 repository               : "Ekko0701/Ekko0701.github.io"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
