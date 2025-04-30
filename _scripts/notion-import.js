@@ -11,7 +11,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
 
 function escapeCodeBlock(body) {
   return body.replace(/```([\s\S]*?)```/g, (_, htmlBlock) => {
-    return `\n{% raw %}\n\\`\\`\\`${htmlBlock.trim()}\n\\`\\`\\`\n{% endraw %}\n`;
+    return `\n{% raw %}\n\```\n${htmlBlock.trim()}\n\```\n{% endraw %}\n`;
   });
 }
 
@@ -38,9 +38,7 @@ function replaceTitleOutsideRawBlocks(body) {
     database_id: databaseId,
     filter: {
       property: "발행여부",
-      checkbox: {
-        equals: false,
-      },
+      checkbox: { equals: false },
     },
   });
 
@@ -51,9 +49,7 @@ function replaceTitleOutsideRawBlocks(body) {
       start_cursor: response.next_cursor,
       filter: {
         property: "발행여부",
-        checkbox: {
-          equals: false,
-        },
+        checkbox: { equals: false },
       },
     });
     pages.push(...response.results);
@@ -75,7 +71,7 @@ function replaceTitleOutsideRawBlocks(body) {
     const fmtags = tags.length > 0 ? `\ntags:\n${tags.map(t => `  - ${t}\n`).join("")}` : "";
     const fmcats = cats.length > 0 ? `\ncategories:\n${cats.map(c => `  - ${c}\n`).join("")}` : "";
 
-    const fm = `---\ntitle: '${title}'${fmcats}${fmtags}\n---\n`;
+    const fm = `---\ntitle: "${title}"${fmcats}${fmtags}\n---\n`;
     const mdblocks = await n2m.pageToMarkdown(id);
     let md = n2m.toMarkdownString(mdblocks).parent;
     if (!md) continue;
@@ -103,8 +99,9 @@ function replaceTitleOutsideRawBlocks(body) {
       return `![${index++}](/${filename})${p1 ? `_${p1}_` : ""}`;
     });
 
-    await fs.promises.appendFile(filePath, fm + edited_md);
+    await fs.promises.writeFile(filePath, fm + edited_md);
     console.log(`✅ 작성됨: ${filePath}`);
   }
 })();
+
 
