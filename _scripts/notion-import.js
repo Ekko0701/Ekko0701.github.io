@@ -65,7 +65,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
       database_id: databaseId,
       start_cursor: nextCursor,
       filter: {
-        property: "공개",
+        property: "발행여부",
         checkbox: {
           equals: true,
         },
