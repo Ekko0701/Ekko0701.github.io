@@ -83,7 +83,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     }
     // title
     let title = id;
-    let ptitle = r.properties?.["게시물"]?.["title"];
+    let ptitle = r.properties?.["제목"]?.["title"];
     if (ptitle?.length > 0) {
       title = ptitle[0]?.["plain_text"];
     }
