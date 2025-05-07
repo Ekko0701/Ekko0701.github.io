@@ -50,10 +50,20 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
   let response = await notion.databases.query({
     database_id: databaseId,
     filter: {
-      property: "상태",
-      status: {
-        equals: "완료",
-      },
+      and: [
+        {
+          property: "포스트",
+          checkbox: {
+            equals: true,
+          },
+        },
+        {
+          property: "상태",
+          status: {
+            equals: "완료",
+          },
+        },
+      ],
     },
   });
 
