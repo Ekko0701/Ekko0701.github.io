@@ -52,7 +52,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     filter: {
       property: "발행여부",
       checkbox: {
-        equals: true,
+        equals: false,
       },
     },
   });
