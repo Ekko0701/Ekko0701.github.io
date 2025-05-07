@@ -51,7 +51,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     database_id: databaseId,
     filter: {
       property: "상태",
-      select: {
+      status: {
         equals: "완료",
       },
     },
