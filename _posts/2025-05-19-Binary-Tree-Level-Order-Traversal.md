@@ -1,0 +1,91 @@
+---
+title: "Binary Tree Level Order Traversal"
+categories:
+  - Algorithm
+
+tags:
+  - BFS
+  - Binary Tree
+
+---
+
+
+## 문제
+
+
+[https://leetcode.com/problems/binary-tree-level-order-traversal/submissions/1637882059/?envType=study-plan-v2&envId=top-interview-150](https://leetcode.com/problems/binary-tree-level-order-traversal/submissions/1637882059/?envType=study-plan-v2&envId=top-interview-150)
+
+
+Given the `root` of a binary tree, return _the level order traversal of its nodes' values_. (i.e., from left to right, level by level).
+
+
+이진 트리의 루트 노드가 주어졌을 때, 그 노드들의 값을 레벨 순서대로 순회한 결과를 리턴하시오.
+
+
+
+## 풀이
+
+- `BFS` 탐색에서 `Queue`에는 각 레벨의 모든 노드가 들어가 있다는 점을 이용하자
+- `BFS`를 진행하며 각 레벨의 노드를 `result` 배열에 추가
+
+
+{% raw %}
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return []
+
+        def bfs(start):
+            queue = deque([start])
+            result = []
+
+            while queue:
+                level_size = len(queue)
+                level = []
+
+                for _ in range(level_size):
+                    cur = queue.popleft()
+                    level.append(cur.val)
+
+                    if cur.left:
+                        queue.append(cur.left)
+                    if cur.right:
+                        queue.append(cur.right)
+                    
+                result.append(level)
+
+            return result
+
+        return bfs(root)
+```
+{% endraw %}
+
+
+1. queue = [1]
+2. 첫번째 while 루프
+	1. level_size = 1
+	2. level = [1]
+	3. result = [[1]]
+3. 두번째 while 루프
+	1. queue = [2, 3]
+	2. level_size = 2
+	3. level = [2, 3]
+	4. result = [[1], [2, 3]]
+4. 세번째 while 루프
+	1. queue = [4, 5, 6]
+	2. level_size = 3
+	3. level = [4, 5, 6]
+	4. result = [[1], [2, 3], [4, 5, 6]]
+
+> 시간복잡도: O(N) - 모든 노드를 한 번씩 방문
+
+
+> 공간복잡도: O(N) - Queue에 모든 노드(N개)가 들어갈 수 있다.
+
