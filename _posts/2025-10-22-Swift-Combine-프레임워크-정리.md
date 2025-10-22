@@ -455,6 +455,15 @@ publisher
 
 ### Combine vs RxSwift
 
+
+| 항목    | Combine | RxSwift |
+| ----- | ------- | ------- |
+| 제공자   | Apple   | 커뮤니티    |
+| 지원 버전 | iOS 13+ | iOS 8+  |
+| 학습 곡선 | 비교적 쉬움  | 가파름     |
+| 생태계   | 성장 중    | 성숙함     |
+| 성능    | 최적화됨    | 우수함     |
+
 undefined
 
 ### 주의사항
