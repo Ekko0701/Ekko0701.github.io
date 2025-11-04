@@ -3,6 +3,9 @@ title: "[Spring MVC 1편] Section6 - Servlet & Spring MVC 발전 과정 정리"
 categories:
   - Spring
 
+tags:
+  - SpringMVC
+
 ---
 
 
