@@ -17,10 +17,10 @@ minimal_mistakes_skin    : "dark" # "air", "aqua", "contrast", "dark", "dirt", "
 # Site Settings
 locale                   : "ko-KR"
 rtl                      : # true, false (default) # turns direction of the page into right to left for RTL languages
-title                    : "에코입니다"
+title                    : "Dongjoo Archive"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
-name                     : "브라운"
+name                     : "Dongjoo"
 description              : "하루하루는 성실하게, 인생은 흘러가는대로"
 url                      : "https://ekko0701.github.io"
 baseurl                  : ""
@@ -113,10 +113,10 @@ analytics:
 
 # Site Author
 author:
-  name             : "Your Name"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I am an **amazing** person."
-  location         : "Somewhere"
+  name             : "Dongjoo"
+  avatar           : "/assets/images/dj_run_profile.JPG"
+  bio              : "iOS, Backend Developer"
+  location         : "Seoul, Korea"
   email            :
   links:
     - label: "Email"
