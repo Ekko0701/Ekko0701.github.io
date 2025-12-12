@@ -11,6 +11,8 @@ search: false
 /* Custom styles for archive list with right-side thumbnail */
 .list__item {
   margin-bottom: 24px !important;
+  padding-bottom: 24px !important;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .list__item .archive__item--with-teaser {
