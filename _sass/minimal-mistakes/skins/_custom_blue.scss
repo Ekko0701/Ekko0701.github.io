@@ -1,0 +1,34 @@
+/* ==========================================================================
+   Custom Blue skin
+   Color Palette: #1B262C, #0F4C75, #3282B8, #BBE1FA, #F9F7F7
+   ========================================================================== */
+
+/* Colors */
+$background-color: #fff !default;
+$text-color: #1B262C !default;
+$muted-text-color: #0F4C75 !default;
+$primary-color: #3282B8 !default;
+$border-color: mix(#fff, #3282B8, 75%) !default;
+$code-background-color: #F9F7F7 !default;
+$code-background-color-dark: mix(#000, #F9F7F7, 5%) !default;
+$form-background-color: #F9F7F7 !default;
+$footer-background-color: #BBE1FA !default;
+$link-color: #3282B8 !default;
+$link-color-hover: #0F4C75 !default;
+$link-color-visited: mix(#1B262C, $link-color, 25%) !default;
+$masthead-link-color: #1B262C !default;
+$masthead-link-color-hover: #3282B8 !default;
+$navicon-link-color-hover: mix(#fff, #1B262C, 80%) !default;
+
+.page__footer {
+  color: #1B262C !important;
+}
+
+.page__footer-follow .social-icons .svg-inline--fa {
+  color: inherit;
+}
+
+.page__footer a:hover {
+  color: #0F4C75;
+}
+
