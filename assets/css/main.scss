@@ -21,7 +21,7 @@ search: false
   align-items: flex-start !important;
   justify-content: space-between !important;
   gap: 1.5em;
-  height: 155px;
+  height: 150px;
   padding: 0 !important;
   margin: 0 !important;
 
@@ -32,34 +32,57 @@ search: false
     overflow: hidden;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: flex-start !important;
+    justify-content: space-between !important;
     align-items: flex-start !important;
+
+    .archive__item-top {
+      width: 100%;
+    }
+
+    .archive__item-bottom {
+      width: 100%;
+      display: flex;
+      align-items: baseline;
+      gap: 0;
+      flex-wrap: wrap;
+    }
 
     .archive__item-title {
       margin-top: 0 !important;
       margin-bottom: 0.25em;
-      font-size: 1.2rem !important;
+      font-size: 1.1rem !important;
       line-height: 1.4 !important;
+      width: 100%;
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
 
       a {
         text-decoration: none !important;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
 
     .page__meta {
-      margin-top: 0 !important;
-      margin-bottom: 0.25em;
+      margin: 0 !important;
+      color: #f0f8ff !important;
     }
 
     .archive__item-excerpt {
       margin-top: 0.25em !important;
+      margin-bottom: 0 !important;
     }
+
   }
 
   .archive__item-teaser {
     flex-shrink: 0;
-    width: 155px;
-    height: 155px;
+    width: 150px;
+    height: 150px;
     overflow: hidden;
     border-radius: 8px;
 
@@ -76,16 +99,16 @@ search: false
   }
 }
 
-/* Force 2-line excerpt */
+/* Force 3-line content */
 .archive__item-excerpt {
   display: -webkit-box !important;
-  -webkit-line-clamp: 2 !important;
+  -webkit-line-clamp: 3 !important;
   -webkit-box-orient: vertical !important;
   overflow: hidden !important;
   text-overflow: ellipsis;
   margin-top: 0.5em;
-  line-height: 1.6;
-  max-height: 3.2em; /* fallback: 2 lines × 1.6 line-height */
+  line-height: 1.5;
+  max-height: 4.5em; /* fallback: 3 lines × 1.5 line-height */
 }
 
 /* Responsive: stack on mobile */

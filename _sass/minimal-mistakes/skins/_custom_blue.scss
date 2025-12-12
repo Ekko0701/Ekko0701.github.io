@@ -1,27 +1,28 @@
 /* ==========================================================================
    Custom Blue skin
-   Color Palette: #1B262C, #0F4C75, #3282B8, #BBE1FA, #F9F7F7
+   Color Palette: #F9F7F7, #DBE2EF, #3F72AF, #112D4E
+   Page Background: #FFFFFF
    ========================================================================== */
 
 /* Colors */
 $background-color: #fff !default;
-$text-color: #1B262C !default;
-$muted-text-color: #0F4C75 !default;
-$primary-color: #3282B8 !default;
-$border-color: mix(#fff, #3282B8, 75%) !default;
+$text-color: #112D4E !default;
+$muted-text-color: #3F72AF !default;
+$primary-color: #3F72AF !default;
+$border-color: mix(#fff, #3F72AF, 75%) !default;
 $code-background-color: #F9F7F7 !default;
 $code-background-color-dark: mix(#000, #F9F7F7, 5%) !default;
 $form-background-color: #F9F7F7 !default;
-$footer-background-color: #BBE1FA !default;
-$link-color: #3282B8 !default;
-$link-color-hover: #0F4C75 !default;
-$link-color-visited: mix(#1B262C, $link-color, 25%) !default;
-$masthead-link-color: #1B262C !default;
-$masthead-link-color-hover: #3282B8 !default;
-$navicon-link-color-hover: mix(#fff, #1B262C, 80%) !default;
+$footer-background-color: #DBE2EF !default;
+$link-color: #3F72AF !default;
+$link-color-hover: #112D4E !default;
+$link-color-visited: mix(#112D4E, $link-color, 25%) !default;
+$masthead-link-color: #112D4E !default;
+$masthead-link-color-hover: #3F72AF !default;
+$navicon-link-color-hover: mix(#fff, #112D4E, 80%) !default;
 
 .page__footer {
-  color: #1B262C !important;
+  color: #112D4E !important;
 }
 
 .page__footer-follow .social-icons .svg-inline--fa {
@@ -29,6 +30,6 @@ $navicon-link-color-hover: mix(#fff, #1B262C, 80%) !default;
 }
 
 .page__footer a:hover {
-  color: #0F4C75;
+  color: #3F72AF;
 }
 
