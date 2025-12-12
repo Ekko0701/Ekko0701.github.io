@@ -133,7 +133,7 @@ author:
       # url: "https://facebook.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      # url: "https://github.com/"
+      url: "https://github.com/Ekko0701"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url: "https://instagram.com/"
@@ -325,6 +325,7 @@ defaults:
       layout: single
       author_profile: true
       read_time: true
+      show_date: true
       comments: # true
       share: true
       related: true
