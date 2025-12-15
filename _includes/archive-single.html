@@ -1,7 +1,22 @@
 {% if post.header.teaser %}
   {% capture teaser %}{{ post.header.teaser }}{% endcapture %}
 {% else %}
-  {% assign teaser = site.teaser %}
+  {% assign teaser = nil %}
+  {% assign post_content = post.content %}
+  {% if post_content contains '<img' %}
+    {% assign img_split = post_content | split: 'src="' %}
+    {% if img_split.size > 1 %}
+      {% assign teaser = img_split[1] | split: '"' | first %}
+    {% endif %}
+  {% elsif post_content contains '![' %}
+    {% assign md_img_split = post_content | split: '](' %}
+    {% if md_img_split.size > 1 %}
+      {% assign teaser = md_img_split[1] | split: ')' | first %}
+    {% endif %}
+  {% endif %}
+  {% unless teaser %}
+    {% assign teaser = site.teaser %}
+  {% endunless %}
 {% endif %}
 
 {% if post.id %}
