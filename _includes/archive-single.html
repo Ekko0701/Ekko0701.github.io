@@ -39,6 +39,13 @@
         <p class="archive__item-excerpt" itemprop="description">{{ post.content | markdownify | strip_html | truncate: 300 }}</p>
       </div>
       <div class="archive__item-bottom">
+        {% if post.categories %}
+          <div class="archive__item-categories">
+            {% for category in post.categories %}
+              <a href="{{ site.baseurl }}/categories/#{{ category | slugify }}" class="archive__item-category">{{ category }}</a>
+            {% endfor %}
+          </div>
+        {% endif %}
         {% include page__meta.html type=include.type %}
       </div>
     </div>
