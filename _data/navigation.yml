@@ -10,5 +10,7 @@ main:
     url: /categories/algorithm/
   - title: "CS"
     url: /categories/cs/
+  - title: "Others"
+    url: /categories/others/
   - title: "Tags"
     url: /tags/
