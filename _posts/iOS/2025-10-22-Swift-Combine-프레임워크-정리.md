@@ -28,8 +28,6 @@ Publisher는 시간에 따라 값을 방출(emit)할 수 있는 타입입니다.
 **기본 Publisher들:**
 
 
-
-{% raw %}
 ```swift
 // Just - 단일 값을 방출하고 완료
 let justPublisher = Just(5)
@@ -47,7 +45,6 @@ let subject = PassthroughSubject<String, Never>()
 // Published - 프로퍼티 래퍼
 @Published var value: Int = 0
 ```
-{% endraw %}
 
 
 
@@ -64,7 +61,6 @@ Subscriber는 Publisher로부터 값을 받는 타입입니다.
 - `assign`: 값을 프로퍼티에 자동 할당
 
 
-{% raw %}
 ```swift
 // sink 사용
 let cancellable = publisher
@@ -86,7 +82,6 @@ let cancellable = publisher
 let cancellable = publisher
     .assign(to: \.text, on: label)
 ```
-{% endraw %}
 
 
 
@@ -102,7 +97,6 @@ Operator는 Publisher를 변환, 필터링, 결합하는 메서드들입니다.
 
 
 
-{% raw %}
 ```swift
 // map - 값을 변환
 publisher
@@ -119,7 +113,6 @@ publisher
 publisher
     .compactMap { Int($0) }
 ```
-{% endraw %}
 
 
 
@@ -128,7 +121,6 @@ publisher
 
 
 
-{% raw %}
 ```swift
 // filter - 조건에 맞는 값만 통과
 publisher
@@ -146,7 +138,6 @@ publisher
 publisher
     .last()
 ```
-{% endraw %}
 
 
 
@@ -155,7 +146,6 @@ publisher
 
 
 
-{% raw %}
 ```swift
 // combineLatest - 두 Publisher의 최신 값을 결합
 Publishers.CombineLatest(publisher1, publisher2)
@@ -169,7 +159,6 @@ Publishers.Merge(publisher1, publisher2)
 // zip - 각 Publisher에서 하나씩 쌍으로
 [Publishers.Zip](http://publishers.zip/)(publisher1, publisher2)
 ```
-{% endraw %}
 
 
 
@@ -178,7 +167,6 @@ Publishers.Merge(publisher1, publisher2)
 
 
 
-{% raw %}
 ```swift
 // catch - 에러를 처리하고 대체 Publisher 제공
 publisher
@@ -194,7 +182,6 @@ publisher
 publisher
     .replaceError(with: defaultValue)
 ```
-{% endraw %}
 
 
 
@@ -203,7 +190,6 @@ publisher
 
 
 
-{% raw %}
 ```swift
 // debounce - 지정된 시간 동안 값이 없을 때만 방출
 textField.publisher
@@ -217,7 +203,6 @@ publisher
 publisher
     .delay(for: .seconds(2), scheduler: RunLoop.main)
 ```
-{% endraw %}
 
 
 
@@ -229,7 +214,6 @@ Subject는 Publisher이면서 동시에 값을 수동으로 전송할 수 있는
 
 
 
-{% raw %}
 ```swift
 // PassthroughSubject - 값을 저장하지 않음
 let passthrough = PassthroughSubject<String, Never>()
@@ -241,7 +225,6 @@ print(currentValue.value) // 0
 currentValue.send(1)
 print(currentValue.value) // 1
 ```
-{% endraw %}
 
 
 
@@ -253,7 +236,6 @@ print(currentValue.value) // 1
 
 
 
-{% raw %}
 ```swift
 // AnyCancellable로 저장
 var cancellables = Set<AnyCancellable>()
@@ -270,7 +252,6 @@ cancellable.cancel()
 // Set에 저장된 모든 구독 취소
 cancellables.removeAll()
 ```
-{% endraw %}
 
 
 
@@ -283,7 +264,6 @@ cancellables.removeAll()
 
 
 
-{% raw %}
 ```swift
 func fetchData(from url: URL) -> AnyPublisher<Data, Error> {
     URLSession.shared.dataTaskPublisher(for: url)
@@ -307,7 +287,6 @@ fetchData(from: url)
     )
     .store(in: &cancellables)
 ```
-{% endraw %}
 
 
 
@@ -316,7 +295,6 @@ fetchData(from: url)
 
 
 
-{% raw %}
 ```swift
 class LoginViewModel {
     @Published var username = ""
@@ -334,7 +312,6 @@ class LoginViewModel {
     }
 }
 ```
-{% endraw %}
 
 
 
@@ -343,7 +320,6 @@ class LoginViewModel {
 
 
 
-{% raw %}
 ```swift
 class SearchViewModel {
     @Published var searchText = ""
@@ -371,7 +347,6 @@ class SearchViewModel {
     }
 }
 ```
-{% endraw %}
 
 
 
@@ -380,7 +355,6 @@ class SearchViewModel {
 
 
 
-{% raw %}
 ```swift
 func loadUserProfile(userId: String) -> AnyPublisher<UserProfile, Error> {
     let userPublisher = fetchUser(userId)
@@ -394,7 +368,6 @@ func loadUserProfile(userId: String) -> AnyPublisher<UserProfile, Error> {
         .eraseToAnyPublisher()
 }
 ```
-{% endraw %}
 
 
 
@@ -407,12 +380,10 @@ func loadUserProfile(userId: String) -> AnyPublisher<UserProfile, Error> {
 
 
 
-{% raw %}
 ```swift
 publisher
     .buffer(size: 10, prefetch: .byRequest, whenFull: .dropOldest)
 ```
-{% endraw %}
 
 
 
@@ -421,7 +392,6 @@ publisher
 
 
 
-{% raw %}
 ```swift
 // weak self 사용
 publisher
@@ -430,7 +400,6 @@ publisher
     }
     .store(in: &cancellables)
 ```
-{% endraw %}
 
 
 
@@ -439,7 +408,6 @@ publisher
 
 
 
-{% raw %}
 ```swift
 publisher
     .subscribe(on: [DispatchQueue.global](http://dispatchqueue.global/)()) // 구독을 백그라운드에서
@@ -448,7 +416,6 @@ publisher
         // UI 업데이트
     }
 ```
-{% endraw %}
 
 
 
@@ -482,7 +449,6 @@ undefined
 4. Custom Publisher 만들기로 재사용성 향상
 
 
-{% raw %}
 ```swift
 // 디버깅
 publisher
@@ -497,6 +463,5 @@ let sharedPublisher = expensivePublisher
 sharedPublisher.sink { print("1: \($0)") }
 sharedPublisher.sink { print("2: \($0)") }
 ```
-{% endraw %}
 
 
