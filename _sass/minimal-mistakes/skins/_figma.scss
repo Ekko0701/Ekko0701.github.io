@@ -1,0 +1,67 @@
+/* ==========================================================================
+   Figma skin
+   Inspired interpretation of Figma's marketing design: a confident
+   black-and-white editorial frame interrupted by oversized pastel color
+   blocks. Monochrome core (pure black ink, pure white canvas, pill CTAs),
+   figmaSans-style variable display with tight negative tracking, and
+   figmaMono uppercase eyebrows/captions. Pastels are the joy; black & white
+   is the discipline.
+
+   Proprietary fonts unavailable -> documented substitutes:
+   figmaSans -> Pretendard/Inter, figmaMono -> Geist Mono.
+   ========================================================================== */
+
+/* --- Figma brand tokens (consumed by assets/css/main.scss) --- */
+$figma-ink: #000000;
+$figma-canvas: #ffffff;
+$figma-hairline: #e6e6e6;
+$figma-surface-soft: #f7f7f5;
+$figma-lime: #dceeb1;
+$figma-lilac: #c5b0f4;
+$figma-cream: #f4ecd6;
+$figma-pink: #efd4d4;
+$figma-mint: #c8e6cd;
+$figma-coral: #f3c9b6;
+$figma-navy: #1f1d3d;
+$figma-magenta: #ff3d8b;
+
+/* --- Type faces (figmaSans -> Pretendard/Inter; figmaMono -> Geist Mono) --- */
+$figma-sans: "Pretendard Variable", Pretendard, "Inter", -apple-system,
+  BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", system-ui,
+  sans-serif;
+$figma-mono: "Geist Mono", "JetBrains Mono", ui-monospace, SFMono-Regular,
+  Menlo, Monaco, monospace;
+
+/* --- Minimal Mistakes font variables --- */
+$serif: $figma-sans;
+$sans-serif: $figma-sans;
+$monospace: $figma-mono;
+$sans-serif-narrow: $figma-sans;
+$global-font-family: $figma-sans;
+$header-font-family: $figma-sans;
+$caption-font-family: $figma-sans;
+
+/* --- Minimal Mistakes color variables (monochrome, light) --- */
+$background-color: $figma-canvas;
+$text-color: $figma-ink;
+$muted-text-color: $figma-ink; // Figma: weight (not gray) carries hierarchy
+$primary-color: $figma-ink;
+$border-color: $figma-hairline;
+$code-background-color: $figma-surface-soft;
+$code-background-color-dark: #ececea;
+$form-background-color: $figma-canvas;
+$footer-background-color: $figma-canvas; // Figma footer is white
+$link-color: $figma-ink; // monochrome links; weight + underline carry emphasis
+$link-color-hover: $figma-ink;
+$link-color-visited: $figma-ink;
+$masthead-link-color: $figma-ink;
+$masthead-link-color-hover: $figma-ink;
+$navicon-link-color-hover: $figma-surface-soft;
+
+/* --- Minimal Mistakes layout overrides (ported from the vendored
+   _variables.scss). The skin is imported before the theme's _variables, so
+   these win over the remote_theme defaults. --- */
+$x-large: 1400px; // wider content container (theme default 1280px)
+$right-sidebar-width-narrow: 150px; // theme default 200px
+$right-sidebar-width: 200px; // theme default 300px
+$right-sidebar-width-wide: 250px; // theme default 400px

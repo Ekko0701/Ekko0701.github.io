@@ -1,0 +1,46 @@
+<!-- start custom head snippets -->
+
+<!-- Fonts: Figma design fallbacks (Pretendard KR+Latin body/display + Geist Mono labels) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- Mermaid.js CDN for diagram rendering -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+
+<!-- Dark mode: apply theme before paint (no flash) + inject toggle button -->
+<script>
+  (function () {
+    var KEY = "theme";
+    var root = document.documentElement;
+    function saved() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+    function systemDark() { return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches; }
+    function apply(t) { root.setAttribute("data-theme", t); }
+
+    apply(saved() || (systemDark() ? "dark" : "light"));
+
+    document.addEventListener("DOMContentLoaded", function () {
+      var btn = document.createElement("button");
+      btn.className = "theme-toggle";
+      btn.type = "button";
+      btn.setAttribute("aria-label", "다크 모드 전환");
+      function render() {
+        btn.textContent = root.getAttribute("data-theme") === "dark" ? "☀" : "☾";
+      }
+      render();
+      btn.addEventListener("click", function () {
+        var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        apply(next);
+        try { localStorage.setItem(KEY, next); } catch (e) {}
+        render();
+      });
+      document.body.appendChild(btn);
+    });
+  })();
+</script>
+
+<!-- end custom head snippets -->

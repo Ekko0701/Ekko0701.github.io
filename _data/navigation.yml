@@ -1,0 +1,16 @@
+# main links
+main:
+  - title: "Home"
+    url: /
+  - title: "iOS"
+    url: /categories/ios/
+  - title: "Spring"
+    url: /categories/spring/
+  - title: "Algorithm"
+    url: /categories/algorithm/
+  - title: "CS"
+    url: /categories/cs/
+  - title: "Others"
+    url: /categories/others/
+  - title: "Tags"
+    url: /tags/

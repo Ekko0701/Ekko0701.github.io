@@ -1,0 +1,696 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+search: false
+---
+
+@charset "utf-8";
+
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
+@import "minimal-mistakes"; // main partials
+
+/* ==========================================================================
+   Figma design overrides + light/dark theming.
+
+   Theme-adaptive colors are exposed as CSS custom properties and switched via
+   `:root[data-theme]` (set by the head script from localStorage or the OS
+   preference). Pastels, the navy code panel, and chip text stay fixed in both
+   modes. Type scale follows design.md roles (see comments inline).
+   ========================================================================== */
+
+/* --- Theme tokens (light default) --- */
+:root {
+  --canvas: #{$figma-canvas};
+  --ink: #{$figma-ink};
+  --surface: #{$figma-surface-soft};
+  --hairline: #{$figma-hairline};
+}
+
+/* Dark values: applied when the OS prefers dark and the user hasn't forced light */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --canvas: #14141a;
+    --ink: #f4f4f2;
+    --surface: #1e1e26;
+    --hairline: #2f2f38;
+  }
+}
+
+/* Dark values: applied when the user explicitly chooses dark (persisted) */
+:root[data-theme="dark"] {
+  --canvas: #14141a;
+  --ink: #f4f4f2;
+  --surface: #1e1e26;
+  --hairline: #2f2f38;
+}
+
+/* --- Base --- */
+body {
+  font-family: $figma-sans;
+  background-color: var(--canvas);
+  color: var(--ink);
+  font-weight: 330; /* design.md body */
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1;
+}
+
+.page__content {
+  color: var(--ink);
+
+  p,
+  li {
+    color: var(--ink);
+    font-weight: 330; /* design.md body */
+    line-height: 1.7; /* looser than doc 1.45 for Korean readability */
+    letter-spacing: -0.01em;
+  }
+
+  /* Links — design.md link weight 480, underline + magenta hover */
+  a {
+    color: var(--ink);
+    font-weight: 480;
+    text-decoration: underline;
+    text-underline-offset: 0.16em;
+    text-decoration-thickness: 1px;
+  }
+  a:hover {
+    color: var(--ink);
+    text-decoration-color: $figma-magenta;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: $figma-sans;
+    color: var(--ink);
+    letter-spacing: -0.012em;
+    line-height: 1.35; /* design.md headline line-height */
+  }
+  h1 {
+    font-size: 1.9rem;
+    font-weight: 540;
+  }
+  h2 {
+    /* design.md headline (weight 540) */
+    font-size: 1.55rem;
+    font-weight: 540;
+  }
+  h3 {
+    /* design.md subhead/headline */
+    font-size: 1.3rem;
+    font-weight: 540;
+  }
+  h4 {
+    font-size: 1.12rem;
+    font-weight: 600;
+  }
+
+  hr {
+    border-color: var(--hairline);
+  }
+}
+
+/* Display title — design.md display role, bold per user request, reduced size */
+.page__title,
+.archive__title {
+  font-family: $figma-sans;
+  color: var(--ink);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+.page__title {
+  font-size: clamp(1.55rem, calc(1rem + 1.3vw), 2.1rem); /* ~36-46px */
+}
+
+/* The home/archive layout renders an empty <h1 class="page__title"> above
+   "최근 포스트"; hide it so the subtitle top aligns with the sidebar avatar. */
+.page__title:empty {
+  display: none;
+}
+
+/* Mono uppercase metadata — design.md caption (mono, positive tracking) */
+.page__meta,
+.page__date {
+  font-family: $figma-mono;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: var(--ink);
+}
+/* Mono uppercase eyebrow — design.md eyebrow (mono, positive tracking) */
+.archive__subtitle {
+  font-family: $figma-mono;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 400;
+  font-size: 0.95rem;
+  color: var(--ink);
+  /* Align the top of "최근 포스트" with the sidebar avatar top
+     (sidebar's first child uses margin-top: 1em). */
+  margin-top: 1em;
+}
+
+/* --- Sidebar (author profile): adapt text to theme --- */
+.sidebar {
+  opacity: 1; /* keep fully opaque (theme dims it to 0.75 until hover) */
+  color: var(--ink);
+}
+.author__name,
+.author__bio,
+.author__urls a {
+  color: var(--ink);
+}
+
+/* --- Masthead: canvas bg, hairline base, adaptive links --- */
+.masthead {
+  background-color: var(--canvas);
+  border-bottom: 1px solid var(--hairline);
+}
+.greedy-nav {
+  background: var(--canvas);
+}
+.greedy-nav a {
+  color: var(--ink);
+  font-family: $figma-sans;
+  font-weight: 400; /* design.md top-nav = body-sm */
+  font-size: 0.9rem; /* design.md top-nav body-sm, understated chrome */
+}
+.site-title,
+.greedy-nav a.site-title {
+  font-family: $figma-sans;
+  color: var(--ink);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-size: 1.6rem; /* enlarged "Dongjoo Archive" */
+}
+.site-subtitle {
+  font-family: $figma-mono;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+}
+
+/* Align the last nav item (Tags) trailing edge with the post content edge. */
+.greedy-nav .visible-links li:last-child a {
+  margin-inline-end: 0;
+}
+
+/* Inset the masthead trailing edge by the content's right gutter (sidebar width)
+   so the nav's right edge matches the posts'. */
+@media (min-width: #{$large}) {
+  .masthead__inner-wrap {
+    padding-inline-end: calc(1em + #{$right-sidebar-width-narrow});
+  }
+}
+@media (min-width: #{$x-large}) {
+  .masthead__inner-wrap {
+    padding-inline-end: calc(1em + #{$right-sidebar-width});
+  }
+}
+
+/* --- Buttons: primary pill inverts with the theme (ink bg / canvas text) --- */
+.btn {
+  border-radius: 50px;
+  font-family: $figma-sans;
+  font-weight: 480; /* design.md button */
+  letter-spacing: -0.01em;
+  padding: 0.55em 1.4em;
+}
+.btn--primary,
+.btn--inverse,
+.btn--info,
+.btn--success,
+.btn--warning,
+.btn--danger {
+  background-color: var(--ink);
+  color: var(--canvas);
+  border: 1px solid var(--ink);
+}
+.btn:hover {
+  opacity: 0.82;
+}
+
+/* --- Footer: canvas bg, hairline top, mono caption --- */
+.page__footer {
+  background-color: var(--canvas);
+  border-top: 1px solid var(--hairline);
+  color: var(--ink);
+}
+.page__footer a {
+  color: var(--ink);
+}
+.page__footer a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+.page__footer-follow .social-icons .svg-inline--fa {
+  color: inherit;
+}
+.page__footer-copyright {
+  color: var(--ink);
+  font-family: $figma-mono;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.68rem;
+}
+
+/* --- Inline code: soft surface pill, mono --- */
+.page__content :not(pre) > code {
+  background-color: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  padding: 0.08em 0.4em;
+  font-family: $figma-mono;
+  font-size: 0.85em;
+}
+
+/* --- Code blocks: navy color-block (fixed in both modes) + pastel syntax --- */
+div.highlighter-rouge,
+figure.highlight {
+  background-color: $figma-navy;
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  color: #e8e7f0;
+}
+.highlight {
+  background-color: $figma-navy;
+  border-radius: 8px;
+}
+div.highlighter-rouge pre.highlight,
+figure.highlight pre.highlight,
+.highlight pre {
+  background: transparent;
+}
+
+.highlight {
+  .c,
+  .cm,
+  .c1,
+  .cs,
+  .cd {
+    color: #8a87a8;
+    font-style: italic;
+  }
+  .k,
+  .kd,
+  .kn,
+  .kp,
+  .kr,
+  .kv,
+  .kt,
+  .kc {
+    color: $figma-lilac;
+  }
+  .s,
+  .s1,
+  .s2,
+  .sb,
+  .sc,
+  .sd,
+  .se,
+  .sh,
+  .si,
+  .sx,
+  .sr,
+  .ss {
+    color: $figma-lime;
+  }
+  .mi,
+  .mf,
+  .m,
+  .mh,
+  .mo,
+  .il {
+    color: $figma-coral;
+  }
+  .nf,
+  .fm {
+    color: #ffffff;
+  }
+  .nc,
+  .nn,
+  .no,
+  .py {
+    color: $figma-mint;
+  }
+  .nb,
+  .bp {
+    color: $figma-lilac;
+  }
+  .na,
+  .nv,
+  .vc,
+  .vg,
+  .vi {
+    color: $figma-coral;
+  }
+  .nt {
+    color: $figma-lilac;
+  }
+  .o,
+  .ow {
+    color: #e8e7f0;
+  }
+  .p,
+  .pi {
+    color: #b9b6cc;
+  }
+  .gp {
+    color: #8a87a8;
+  }
+  .gi {
+    color: $figma-lime;
+  }
+  .gd {
+    color: $figma-pink;
+  }
+}
+
+/* --- Tables: hairline rules, mono-caps header --- */
+.page__content table {
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  overflow: hidden;
+  color: var(--ink);
+}
+.page__content th {
+  background-color: var(--surface);
+  color: var(--ink);
+  border-color: var(--hairline);
+  font-family: $figma-mono;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.8rem;
+}
+.page__content td {
+  border-color: var(--hairline);
+}
+
+/* --- Blockquote: lilac accent + soft surface --- */
+.page__content blockquote {
+  border-left: 4px solid $figma-lilac;
+  background-color: var(--surface);
+  border-radius: 0 8px 8px 0;
+  padding: 0.5em 1em;
+  color: var(--ink);
+  font-style: normal;
+}
+
+/* --- Pagination (inverts with theme) --- */
+.pagination a {
+  color: var(--ink);
+  border-radius: 50px;
+}
+.pagination a:hover {
+  background-color: var(--ink);
+  color: var(--canvas);
+}
+.pagination .current {
+  background-color: var(--ink);
+  color: var(--canvas);
+  border-radius: 50px;
+}
+
+/* --- Accessibility: visible keyboard focus --- */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* --- Dark/light theme toggle button (injected by head script) --- */
+.theme-toggle {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 30;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid var(--hairline);
+  background-color: var(--surface);
+  color: var(--ink);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14);
+  transition: transform 0.15s ease;
+}
+.theme-toggle:hover {
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Archive list with right-side thumbnail (hairline rows)
+   ========================================================================== */
+.list__item {
+  margin-bottom: 24px !important;
+  padding-bottom: 24px !important;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.list__item .archive__item--with-teaser {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 1.5em;
+  height: 150px;
+  padding: 0 !important;
+  margin: 0 !important;
+
+  .archive__item-body {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    overflow: hidden;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+
+    .archive__item-top {
+      width: 100%;
+    }
+
+    .archive__item-bottom {
+      width: 100%;
+      display: flex;
+      align-items: baseline;
+      gap: 0.75em;
+      flex-wrap: wrap;
+    }
+
+    .archive__item-title {
+      font-family: $figma-sans;
+      font-weight: 700; /* design.md card-title */
+      letter-spacing: 0;
+      margin-top: 0 !important;
+      margin-bottom: 0.25em;
+      font-size: 1.18rem !important;
+      line-height: 1.35 !important;
+      width: 100%;
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+
+      a {
+        text-decoration: none !important;
+        color: var(--ink);
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      a:hover {
+        text-decoration: underline !important;
+        text-decoration-color: $figma-magenta;
+      }
+    }
+
+    .page__meta {
+      margin: 0 !important;
+      color: var(--ink) !important;
+    }
+
+    .archive__item-excerpt {
+      margin-top: 0.25em !important;
+      margin-bottom: 0 !important;
+      color: var(--ink);
+      font-weight: 350;
+    }
+  }
+
+  .archive__item-teaser {
+    flex-shrink: 0;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid var(--hairline);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover img {
+      transform: scale(1.05);
+    }
+  }
+}
+
+/* Force 3-line content */
+.archive__item-excerpt {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  margin-top: 0.5em;
+  line-height: 1.5;
+  max-height: 4.5em; /* fallback: 3 lines x 1.5 line-height */
+}
+
+/* Responsive: mobile */
+@media (max-width: 600px) {
+  .list__item .archive__item--with-teaser {
+    flex-direction: column-reverse !important;
+    height: auto !important;
+    gap: 0.75em;
+
+    .archive__item-body {
+      height: auto !important;
+      overflow: visible !important;
+    }
+
+    .archive__item-teaser {
+      width: 100% !important;
+      height: 180px !important;
+      margin-bottom: 0;
+    }
+
+    .archive__item-title {
+      font-size: 1rem !important;
+      white-space: normal !important;
+    }
+  }
+
+  .archive__item-excerpt {
+    -webkit-line-clamp: 2 !important;
+    max-height: 3em !important;
+  }
+}
+
+/* Category chips: pastel sticky-note pills (mono uppercase). Pastel is light in
+   both themes, so chip text stays fixed dark. */
+.archive__item-bottom {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+}
+
+.archive__item-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+}
+
+.archive__item-category {
+  display: inline-block;
+  padding: 0.18em 0.7em;
+  font-family: $figma-mono;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #000; /* fixed dark on light pastel */
+  background-color: $figma-lime;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 50px;
+  text-decoration: none;
+  transition: transform 0.15s ease;
+}
+.archive__item-category:hover {
+  transform: translateY(-1px);
+}
+
+/* Unify post taxonomy chips (tags + category) with the archive pastel pills.
+   Tags use the adaptive neutral surface; category chips get a fixed pastel. */
+.page__taxonomy-item {
+  display: inline-block;
+  margin: 0 0.4em 0.4em 0;
+  padding: 0.22em 0.8em;
+  font-family: $figma-mono;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink); /* tags: adaptive text on neutral surface */
+  background-color: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 50px;
+  text-decoration: none;
+  transition: transform 0.15s ease;
+}
+.page__taxonomy-item:hover {
+  transform: translateY(-1px);
+  color: var(--ink);
+}
+.page__taxonomy-item[href*="/categories/"] {
+  color: #000; /* fixed dark on light pastel */
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Fixed pastel per category (archive list + post page), matched by the
+   category link href, so the same category always shows the same color. */
+.archive__item-category[href$="/categories/#algorithm"],
+.page__taxonomy-item[href$="/categories/#algorithm"] {
+  background-color: $figma-lime;
+}
+.archive__item-category[href$="/categories/#cs"],
+.page__taxonomy-item[href$="/categories/#cs"] {
+  background-color: $figma-lilac;
+}
+.archive__item-category[href$="/categories/#ios"],
+.page__taxonomy-item[href$="/categories/#ios"] {
+  background-color: $figma-mint;
+}
+.archive__item-category[href$="/categories/#java"],
+.page__taxonomy-item[href$="/categories/#java"] {
+  background-color: $figma-cream;
+}
+.archive__item-category[href$="/categories/#spring"],
+.page__taxonomy-item[href$="/categories/#spring"] {
+  background-color: $figma-pink;
+}
+.archive__item-category[href$="/categories/#others"],
+.page__taxonomy-item[href$="/categories/#others"] {
+  background-color: $figma-coral;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
